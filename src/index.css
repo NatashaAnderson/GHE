@@ -164,6 +164,12 @@ input {
   text-decoration: none;
 }
 
+.hud-actions button.ghost {
+  background: rgba(248, 252, 255, 0.94);
+  color: var(--ink);
+  border: 1px solid #9bb4c7;
+}
+
 .hud-actions button.ghost,
 .overlay-actions button.ghost {
   background: transparent;

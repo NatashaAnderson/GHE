@@ -13,12 +13,14 @@ export function Hud() {
   const reduceMotion = useProgressStore((s) => s.reduceMotion)
   const setReduceMotion = useProgressStore((s) => s.setReduceMotion)
   const embedMode = useProgressStore((s) => s.embedMode)
+  const resetModule = useProgressStore((s) => s.resetModule)
 
   const pack = activeModuleId ? loadModulePack(activeModuleId) : null
   const doneCount = activeModuleId
     ? (completedStations[activeModuleId] ?? []).length
     : 0
   const totalStations = pack?.stations.length ?? 0
+  const canReset = Boolean(activeModuleId && phase !== 'hub')
 
   return (
     <div className="hud" data-testid="hud">
@@ -40,6 +42,23 @@ export function Hud() {
         {phase === 'module' && doneCount === totalStations && totalStations > 0 && (
           <button type="button" onClick={() => setPhase('quiz')}>
             Knowledge Check
+          </button>
+        )}
+
+        {canReset && pack && (
+          <button
+            type="button"
+            className="ghost"
+            data-testid="reset-stations"
+            onClick={() => {
+              const confirmed = window.confirm(
+                `Reset all ${pack.module.title} stations and start over?`,
+              )
+              if (!confirmed || !activeModuleId) return
+              resetModule(activeModuleId, { badge: pack.module.badge })
+            }}
+          >
+            Reset stations
           </button>
         )}
 

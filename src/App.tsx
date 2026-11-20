@@ -15,6 +15,7 @@ import { xrStore } from './xr/store'
 function Experience() {
   const phase = useProgressStore((s) => s.phase)
   const activeModuleId = useProgressStore((s) => s.activeModuleId)
+  const resetNonce = useProgressStore((s) => s.resetNonce)
   const pack = useMemo(
     () => (activeModuleId ? loadModulePack(activeModuleId) : null),
     [activeModuleId],
@@ -24,7 +25,9 @@ function Experience() {
     <>
       <DesktopControls enabled={phase !== 'quiz' && phase !== 'badge'} />
       {phase === 'hub' && <HubScene />}
-      {phase !== 'hub' && pack?.module.id === 'm01' && <Module1Scene pack={pack} />}
+      {phase !== 'hub' && pack?.module.id === 'm01' && (
+        <Module1Scene key={`m01-${resetNonce}`} pack={pack} />
+      )}
       {phase !== 'hub' && pack && pack.module.id !== 'm01' && <HubScene />}
     </>
   )

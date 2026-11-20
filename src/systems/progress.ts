@@ -21,6 +21,7 @@ type ProgressState = {
   reduceMotion: boolean
   focusedStationId: string | null
   lastInsight: string | null
+  resetNonce: number
   setEmbedContext: (ctx: {
     courseId: string | null
     learnerId: string | null
@@ -38,7 +39,7 @@ type ProgressState = {
   recordQuizScore: (moduleId: string, score: number) => void
   awardBadge: (moduleId: string, badge: string, score: number) => void
   setReduceMotion: (value: boolean) => void
-  resetModule: (moduleId: string) => void
+  resetModule: (moduleId: string, options?: { badge?: string }) => void
 }
 
 export const useProgressStore = create<ProgressState>()(
@@ -56,6 +57,7 @@ export const useProgressStore = create<ProgressState>()(
       reduceMotion: false,
       focusedStationId: null,
       lastInsight: null,
+      resetNonce: 0,
 
       setEmbedContext: (ctx) => set(ctx),
 
@@ -132,7 +134,7 @@ export const useProgressStore = create<ProgressState>()(
 
       setReduceMotion: (value) => set({ reduceMotion: value }),
 
-      resetModule: (moduleId) => {
+      resetModule: (moduleId, options) => {
         const completedStations = { ...get().completedStations }
         delete completedStations[moduleId]
         const stationFlags = { ...get().stationFlags }
@@ -141,7 +143,20 @@ export const useProgressStore = create<ProgressState>()(
         })
         const quizScores = { ...get().quizScores }
         delete quizScores[moduleId]
-        set({ completedStations, stationFlags, quizScores })
+        const badge = options?.badge
+        const earnedBadges = badge
+          ? get().earnedBadges.filter((item) => item !== badge)
+          : get().earnedBadges
+        set({
+          completedStations,
+          stationFlags,
+          quizScores,
+          earnedBadges,
+          lastInsight: null,
+          phase: 'module',
+          activeModuleId: moduleId,
+          resetNonce: get().resetNonce + 1,
+        })
       },
     }),
     {
