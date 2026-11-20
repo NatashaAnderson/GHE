@@ -2,7 +2,6 @@ import { Text } from '@react-three/drei'
 import { getCatalog } from '../content/loader'
 import { useProgressStore } from '../systems/progress'
 import { CampusEnvironment } from './CampusEnvironment'
-import { InfoPanel } from '../components/InfoPanel'
 
 const PORTAL_LAYOUT: Array<[number, number, number]> = [
   [-6, 0, -4],
@@ -31,12 +30,9 @@ export function HubScene() {
       <Text position={[0, 2.5, -2]} fontSize={0.28} color="#1a6fb5" anchorX="center">
         ForgeX Campus Hub
       </Text>
-
-      <InfoPanel
-        position={[0, 1.6, 4]}
-        title="Mission briefing"
-        body="Enter Module 1: Hydrogen Explorer. Modules 2–8 unlock after later releases. Use WASD to move, Shift+drag to look, or Enter VR on a Quest headset."
-      />
+      <Text position={[0, 1.9, -2]} fontSize={0.16} color="#355068" anchorX="center" maxWidth={8}>
+        Click the green M01 portal to begin
+      </Text>
 
       {catalog.modules.map((module, index) => {
         const position = PORTAL_LAYOUT[index] ?? [0, 0, -4]

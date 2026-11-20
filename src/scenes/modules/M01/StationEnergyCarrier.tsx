@@ -1,6 +1,6 @@
 import { Text } from '@react-three/drei'
 import type { StationDefinition } from '../../../content/types'
-import { InfoPanel } from '../../../components/InfoPanel'
+import { StationStatusLabel } from '../../../components/StationStatusLabel'
 import { EMPTY_FLAGS } from '../../../systems/emptyFlags'
 import { useProgressStore } from '../../../systems/progress'
 
@@ -38,6 +38,14 @@ export function StationEnergyCarrier({
       <Text position={[0, 2.9, 0]} fontSize={0.26} color="#0f2438" anchorX="center">
         {station.title}
       </Text>
+      <StationStatusLabel
+        complete={isComplete}
+        hint={
+          flags['flow-complete']
+            ? 'Deliver to Transport, Maritime, Industry'
+            : 'Tap the Hydrogen step'
+        }
+      />
 
       {flow.map((step, index) => (
         <group key={step} position={[-1.6 + index * 1.6, 1.5, 0]}>
@@ -89,17 +97,6 @@ export function StationEnergyCarrier({
           </group>
         )
       })}
-
-      <InfoPanel
-        position={[0, 0.4, 2.5]}
-        title={isComplete ? 'Energy carrier understood' : 'Route the energy'}
-        body={
-          isComplete
-            ? 'Hydrogen carries renewable energy to trucks, ships, and industry.'
-            : 'Tap Hydrogen to finish the flow, then deliver energy to Transport, Maritime, and Industry.'
-        }
-        tone={isComplete ? 'success' : 'default'}
-      />
     </group>
   )
 }

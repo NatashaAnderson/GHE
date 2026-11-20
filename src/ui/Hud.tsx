@@ -1,6 +1,7 @@
 import { getCatalog, loadModulePack } from '../content/loader'
 import { xrStore } from '../xr/store'
 import { useProgressStore } from '../systems/progress'
+import { CoachBanner } from './CoachBanner'
 
 export function Hud() {
   const catalog = getCatalog()
@@ -79,6 +80,8 @@ export function Hud() {
 
         {embedMode && <span className="hud-embed">LMS embed</span>}
       </div>
+
+      <CoachBanner />
     </div>
   )
 }

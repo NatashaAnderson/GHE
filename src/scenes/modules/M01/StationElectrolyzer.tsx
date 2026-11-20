@@ -3,7 +3,7 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import type { Group } from 'three'
 import type { StationDefinition } from '../../../content/types'
-import { InfoPanel } from '../../../components/InfoPanel'
+import { StationStatusLabel } from '../../../components/StationStatusLabel'
 import { EMPTY_FLAGS } from '../../../systems/emptyFlags'
 import { useProgressStore } from '../../../systems/progress'
 
@@ -62,6 +62,18 @@ export function StationElectrolyzer({
       <Text position={[0, 2.9, 0]} fontSize={0.26} color="#0f2438" anchorX="center">
         {station.title}
       </Text>
+      <StationStatusLabel
+        complete={isComplete}
+        hint={
+          !powered
+            ? 'Step 1: Connect renewables'
+            : !running
+              ? 'Step 2: Start electrolysis'
+              : !observed
+                ? 'Step 3: Observe H₂ / O₂'
+                : 'Working…'
+        }
+      />
 
       {/* Tank */}
       <mesh position={[0, 1.0, 0]}>
@@ -138,17 +150,6 @@ export function StationElectrolyzer({
       <Text position={[1.5, 1.05, 1.2]} fontSize={0.12} color="#0f2438" anchorX="center">
         Observe H₂ / O₂
       </Text>
-
-      <InfoPanel
-        position={[0, 0.45, 2.4]}
-        title={isComplete ? 'Green hydrogen produced' : 'Electrolysis bay'}
-        body={
-          isComplete
-            ? 'Renewable electricity splits water into hydrogen and oxygen — that is why this hydrogen is called green.'
-            : station.coachPrompt
-        }
-        tone={isComplete ? 'success' : 'default'}
-      />
     </group>
   )
 }

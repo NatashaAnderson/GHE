@@ -19,6 +19,7 @@ type ProgressState = {
   learnerId: string | null
   embedMode: boolean
   reduceMotion: boolean
+  focusedStationId: string | null
   setEmbedContext: (ctx: {
     courseId: string | null
     learnerId: string | null
@@ -27,6 +28,7 @@ type ProgressState = {
   enterHub: () => void
   startModule: (moduleId: string) => void
   setPhase: (phase: AppPhase) => void
+  setFocusedStationId: (stationId: string | null) => void
   markInteraction: (moduleId: string, stationId: string, flag: string) => void
   completeStation: (moduleId: string, stationId: string) => void
   isStationComplete: (moduleId: string, stationId: string) => boolean
@@ -50,18 +52,25 @@ export const useProgressStore = create<ProgressState>()(
       learnerId: null,
       embedMode: false,
       reduceMotion: false,
+      focusedStationId: null,
 
       setEmbedContext: (ctx) => set(ctx),
 
-      enterHub: () => set({ phase: 'hub', activeModuleId: null }),
+      enterHub: () => set({ phase: 'hub', activeModuleId: null, focusedStationId: null }),
 
       startModule: (moduleId) =>
         set({
           activeModuleId: moduleId,
           phase: 'module',
+          focusedStationId: null,
         }),
 
       setPhase: (phase) => set({ phase }),
+
+      setFocusedStationId: (stationId) => {
+        if (get().focusedStationId === stationId) return
+        set({ focusedStationId: stationId })
+      },
 
       markInteraction: (moduleId, stationId, flag) => {
         const key = `${moduleId}:${stationId}`

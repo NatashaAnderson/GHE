@@ -1,7 +1,7 @@
 import { Text } from '@react-three/drei'
 import { useState } from 'react'
 import type { StationDefinition } from '../../../content/types'
-import { InfoPanel } from '../../../components/InfoPanel'
+import { StationStatusLabel } from '../../../components/StationStatusLabel'
 import { useProgressStore } from '../../../systems/progress'
 
 type AtomSlot = 'h1' | 'h2' | null
@@ -45,8 +45,11 @@ export function StationBondingLab({
       <Text position={[0, 2.8, 0]} fontSize={0.28} color="#0f2438" anchorX="center">
         {station.title}
       </Text>
+      <StationStatusLabel
+        complete={isComplete}
+        hint={selected ? `Bonds ${bondCount}/2 — click an O slot` : `Bonds ${bondCount}/2 — select H`}
+      />
 
-      {/* Oxygen */}
       <mesh position={[0, 1.3, 0]}>
         <sphereGeometry args={[0.42, 24, 24]} />
         <meshStandardMaterial color="#e4572e" />
@@ -55,14 +58,19 @@ export function StationBondingLab({
         O
       </Text>
 
-      {/* Bond slots */}
       {([-0.75, 0.75] as const).map((x, index) => (
         <mesh
           key={`slot-${index}`}
           position={[x, 1.3, 0]}
           onClick={() => placeBond(index)}
+          onPointerOver={() => {
+            document.body.style.cursor = 'pointer'
+          }}
+          onPointerOut={() => {
+            document.body.style.cursor = 'default'
+          }}
         >
-          <sphereGeometry args={[0.28, 20, 20]} />
+          <sphereGeometry args={[0.32, 20, 20]} />
           <meshStandardMaterial
             color={bonds[index] ? '#5eb3ff' : '#9bb4c7'}
             transparent
@@ -71,18 +79,23 @@ export function StationBondingLab({
         </mesh>
       ))}
 
-      {/* Hydrogen supply */}
       {(['h1', 'h2'] as const).map((id, index) => {
         const used = bonds.includes(id)
         return (
           <mesh
             key={id}
-            position={[-1.2 + index * 2.4, 0.7, 1.4]}
+            position={[-1.2 + index * 2.4, 0.7, 1.6]}
             onClick={() => {
               if (!used && !isComplete) setSelected(id)
             }}
+            onPointerOver={() => {
+              document.body.style.cursor = 'pointer'
+            }}
+            onPointerOut={() => {
+              document.body.style.cursor = 'default'
+            }}
           >
-            <sphereGeometry args={[0.26, 20, 20]} />
+            <sphereGeometry args={[0.3, 20, 20]} />
             <meshStandardMaterial
               color={used ? '#9bb4c7' : selected === id ? '#7fd0ff' : '#5eb3ff'}
               emissive={selected === id ? '#2a7fbf' : '#000'}
@@ -91,17 +104,6 @@ export function StationBondingLab({
           </mesh>
         )
       })}
-
-      <InfoPanel
-        position={[0, 0.5, 2.3]}
-        title={isComplete ? 'H₂O assembled' : `Bonds ${bondCount}/2`}
-        body={
-          isComplete
-            ? 'Hydrogen usually joins with other elements — in water, two H atoms bond to one O.'
-            : 'Select a blue H atom, then click an empty bond slot on oxygen.'
-        }
-        tone={isComplete ? 'success' : 'default'}
-      />
     </group>
   )
 }

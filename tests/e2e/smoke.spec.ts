@@ -9,6 +9,7 @@ test('loads campus hub and can open module 1 via deep link', async ({ page }) =>
   await page.goto('/?module=m01&embed=1')
   await expect(page.getByTestId('hud')).toContainText('Hydrogen Explorer')
   await expect(page.getByTestId('station-progress')).toBeVisible()
+  await expect(page.getByTestId('coach-banner')).toBeVisible()
   await expect(page.getByText('LMS embed')).toBeVisible()
 })
 

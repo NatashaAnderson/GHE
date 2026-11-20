@@ -1,7 +1,7 @@
 import { Text } from '@react-three/drei'
 import type { ModulePack } from '../../../content/types'
 import { CampusEnvironment } from '../../CampusEnvironment'
-import { InfoPanel } from '../../../components/InfoPanel'
+import { StationFocusTracker } from '../../StationFocusTracker'
 import { useProgressStore } from '../../../systems/progress'
 import { StationMeetHydrogen } from './StationMeetHydrogen'
 import { StationBondingLab } from './StationBondingLab'
@@ -22,6 +22,7 @@ export function Module1Scene({ pack }: { pack: ModulePack }) {
   return (
     <group>
       <CampusEnvironment reduceMotion={reduceMotion} />
+      <StationFocusTracker stations={pack.stations} />
 
       <Text position={[0, 3.4, 6]} fontSize={0.4} color="#0f2438" anchorX="center">
         {pack.module.title}
@@ -67,12 +68,6 @@ export function Module1Scene({ pack }: { pack: ModulePack }) {
           <Text position={[0, 1.2, 0.2]} fontSize={0.22} color="#fff" anchorX="center">
             Start Knowledge Check
           </Text>
-          <InfoPanel
-            position={[0, 0.35, 1.5]}
-            title="Stations complete"
-            body="You have finished all four explorer stations. Take the knowledge check to earn your badge."
-            tone="success"
-          />
         </group>
       )}
     </group>
