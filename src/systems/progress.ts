@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { HUB_LOOK_AT, HUB_SPAWN } from '../scenes/portalLayout'
 import { postModuleComplete } from './lms'
 
 export type AppPhase =
@@ -76,8 +77,8 @@ export const useProgressStore = create<ProgressState>()(
           activeModuleId: null,
           focusedStationId: null,
           lastInsight: null,
-          cameraSpawn: [0, 1.6, 8],
-          cameraLookAt: [0, 1.4, 2.5],
+          cameraSpawn: [...HUB_SPAWN] as [number, number, number],
+          cameraLookAt: [...HUB_LOOK_AT] as [number, number, number],
         }),
 
       startModule: (moduleId) =>

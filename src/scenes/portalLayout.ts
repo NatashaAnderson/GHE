@@ -16,5 +16,14 @@ export const PORTAL_TELEPORT_RADIUS = 1.15
 /** Where the learner appears after entering a module. */
 export const MODULE_SPAWN: [number, number, number] = [0, 1.6, 7]
 
-/** Where the learner appears when returning to the hub. */
-export const HUB_SPAWN: [number, number, number] = [0, 1.6, 8]
+/**
+ * Campus welcome signpost (ground position).
+ * Kept south of the portal plaza so cylinders are not crowded.
+ */
+export const SIGNPOST_POSITION: [number, number, number] = [0, 0, 11]
+
+/** Camera standing in front of the campus signpost, looking toward the modules. */
+export const HUB_SPAWN: [number, number, number] = [0, 1.6, 13.2]
+
+/** Look target from the signpost toward the portal plaza. */
+export const HUB_LOOK_AT: [number, number, number] = [0, 1.5, 2.5]

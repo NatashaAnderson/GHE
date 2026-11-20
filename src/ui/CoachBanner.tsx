@@ -15,8 +15,8 @@ export function CoachBanner() {
         <p className="coach-eyebrow">Mission briefing</p>
         <strong>Enter Module 1: Hydrogen Explorer</strong>
         <p>
-          Walk into the green Module 01 cylinder to teleport in (or click its sign). Move with
-          WASD, look with Shift+drag.
+          You start at the campus signpost. Walk forward into the green Module 01 cylinder to
+          teleport in. Use Home anytime to return to this sign.
         </p>
       </aside>
     )

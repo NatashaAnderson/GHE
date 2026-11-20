@@ -1,10 +1,10 @@
 import { getCatalog } from '../content/loader'
 import { useProgressStore } from '../systems/progress'
 import { CampusEnvironment } from './CampusEnvironment'
+import { CampusSignPost } from './CampusSignPost'
 import { HubPortal } from './HubPortal'
 import { PortalProximityTeleporter } from './PortalProximityTeleporter'
-import { PORTAL_LAYOUT, MODULE_SPAWN } from './portalLayout'
-import { WorldSign } from '../components/WorldSign'
+import { MODULE_SPAWN, PORTAL_LAYOUT } from './portalLayout'
 
 export function HubScene() {
   const catalog = getCatalog()
@@ -22,14 +22,7 @@ export function HubScene() {
     <group>
       <CampusEnvironment reduceMotion={reduceMotion} />
       <PortalProximityTeleporter />
-
-      <WorldSign position={[0, 3.1, 5.2]} width={340} tone="accent">
-        <span className="world-sign__eyebrow">ForgeX Campus Hub</span>
-        <strong className="world-sign__title">{catalog.courseTitle}</strong>
-        <span className="world-sign__status">
-          Walk into a green cylinder to teleport · or click its sign
-        </span>
-      </WorldSign>
+      <CampusSignPost />
 
       {catalog.modules.map((module, index) => {
         const position = PORTAL_LAYOUT[index] ?? [0, 0, 2]

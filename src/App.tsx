@@ -64,7 +64,7 @@ export default function App() {
 
       <Canvas
         shadows
-        camera={{ position: [0, 1.6, 10], fov: 55, near: 0.1, far: 120 }}
+        camera={{ position: [0, 1.6, 13.2], fov: 55, near: 0.1, far: 120 }}
         gl={{ antialias: true }}
       >
         <XR store={xrStore}>
@@ -78,7 +78,7 @@ export default function App() {
       {phase === 'badge' && pack && <BadgeCeremony pack={pack} />}
 
       <div className="desktop-help">
-        Move WASD · Walk into a green cylinder to teleport · Shift+drag look · Enter VR on Quest
+        Home = campus signpost · WASD move · Walk into a green cylinder to enter · Shift+drag look
       </div>
     </div>
   )

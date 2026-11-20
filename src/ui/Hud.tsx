@@ -1,4 +1,5 @@
 import { getCatalog, loadModulePack } from '../content/loader'
+import { HUB_LOOK_AT, HUB_SPAWN } from '../scenes/portalLayout'
 import { xrStore } from '../xr/store'
 import { useProgressStore } from '../systems/progress'
 import { CoachBanner } from './CoachBanner'
@@ -9,6 +10,7 @@ export function Hud() {
   const activeModuleId = useProgressStore((s) => s.activeModuleId)
   const completedStations = useProgressStore((s) => s.completedStations)
   const enterHub = useProgressStore((s) => s.enterHub)
+  const requestCameraSpawn = useProgressStore((s) => s.requestCameraSpawn)
   const setPhase = useProgressStore((s) => s.setPhase)
   const reduceMotion = useProgressStore((s) => s.reduceMotion)
   const setReduceMotion = useProgressStore((s) => s.setReduceMotion)
@@ -22,6 +24,15 @@ export function Hud() {
   const totalStations = pack?.stations.length ?? 0
   const canReset = Boolean(activeModuleId && phase !== 'hub')
 
+  const goHome = () => {
+    if (phase === 'hub') {
+      // Already on campus — snap back to the welcome signpost
+      requestCameraSpawn(HUB_SPAWN, HUB_LOOK_AT)
+      return
+    }
+    enterHub()
+  }
+
   return (
     <div className="hud" data-testid="hud">
       <div className="hud-brand">
@@ -33,6 +44,10 @@ export function Hud() {
       </div>
 
       <div className="hud-actions">
+        <button type="button" data-testid="go-home" onClick={goHome}>
+          Home
+        </button>
+
         {phase === 'module' && pack && (
           <div className="hud-progress" data-testid="station-progress">
             Stations {doneCount}/{totalStations}
@@ -63,8 +78,8 @@ export function Hud() {
         )}
 
         {phase !== 'hub' && (
-          <button type="button" onClick={enterHub}>
-            Hub
+          <button type="button" className="ghost" onClick={enterHub}>
+            Hub plaza
           </button>
         )}
 
