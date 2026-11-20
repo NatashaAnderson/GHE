@@ -22,6 +22,8 @@ type ProgressState = {
   focusedStationId: string | null
   lastInsight: string | null
   resetNonce: number
+  cameraSpawn: [number, number, number] | null
+  cameraLookAt: [number, number, number] | null
   setEmbedContext: (ctx: {
     courseId: string | null
     learnerId: string | null
@@ -32,6 +34,11 @@ type ProgressState = {
   setPhase: (phase: AppPhase) => void
   setFocusedStationId: (stationId: string | null) => void
   setLastInsight: (insight: string | null) => void
+  requestCameraSpawn: (
+    spawn: [number, number, number],
+    lookAt?: [number, number, number] | null,
+  ) => void
+  clearCameraSpawn: () => void
   markInteraction: (moduleId: string, stationId: string, flag: string) => void
   completeStation: (moduleId: string, stationId: string) => void
   isStationComplete: (moduleId: string, stationId: string) => boolean
@@ -58,11 +65,20 @@ export const useProgressStore = create<ProgressState>()(
       focusedStationId: null,
       lastInsight: null,
       resetNonce: 0,
+      cameraSpawn: null,
+      cameraLookAt: null,
 
       setEmbedContext: (ctx) => set(ctx),
 
       enterHub: () =>
-        set({ phase: 'hub', activeModuleId: null, focusedStationId: null, lastInsight: null }),
+        set({
+          phase: 'hub',
+          activeModuleId: null,
+          focusedStationId: null,
+          lastInsight: null,
+          cameraSpawn: [0, 1.6, 8],
+          cameraLookAt: [0, 1.4, 2.5],
+        }),
 
       startModule: (moduleId) =>
         set({
@@ -80,6 +96,14 @@ export const useProgressStore = create<ProgressState>()(
       },
 
       setLastInsight: (insight) => set({ lastInsight: insight }),
+
+      requestCameraSpawn: (spawn, lookAt = null) =>
+        set({
+          cameraSpawn: spawn,
+          cameraLookAt: lookAt ?? null,
+        }),
+
+      clearCameraSpawn: () => set({ cameraSpawn: null, cameraLookAt: null }),
 
       markInteraction: (moduleId, stationId, flag) => {
         const key = `${moduleId}:${stationId}`

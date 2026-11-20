@@ -9,6 +9,7 @@ import { useProgressStore } from './systems/progress'
 import { BadgeCeremony } from './ui/BadgeCeremony'
 import { Hud } from './ui/Hud'
 import { QuizOverlay } from './ui/QuizOverlay'
+import { CameraSpawnApplier } from './xr/CameraSpawnApplier'
 import { DesktopControls } from './xr/DesktopControls'
 import { xrStore } from './xr/store'
 
@@ -23,6 +24,7 @@ function Experience() {
 
   return (
     <>
+      <CameraSpawnApplier />
       <DesktopControls enabled={phase !== 'quiz' && phase !== 'badge'} />
       {phase === 'hub' && <HubScene />}
       {phase !== 'hub' && pack?.module.id === 'm01' && (
@@ -76,7 +78,7 @@ export default function App() {
       {phase === 'badge' && pack && <BadgeCeremony pack={pack} />}
 
       <div className="desktop-help">
-        Move WASD · Look Shift+drag · Click portals & stations · Enter VR on Quest
+        Move WASD · Walk into a green cylinder to teleport · Shift+drag look · Enter VR on Quest
       </div>
     </div>
   )

@@ -19,7 +19,11 @@ export function HubPortal({
   onEnter,
 }: HubPortalProps) {
   const numberLabel = String(index + 1).padStart(2, '0')
-  const status = !unlocked ? 'Locked' : earned ? 'Completed · Replay' : 'Open'
+  const status = !unlocked
+    ? 'Locked'
+    : earned
+      ? 'Step inside to replay'
+      : 'Step inside to enter'
   const accent = unlocked ? '#1f9d55' : '#8aa0b3'
   const tone = !unlocked ? 'muted' : earned ? 'success' : 'accent'
 

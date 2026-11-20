@@ -17,6 +17,8 @@ describe('progress store', () => {
       focusedStationId: null,
       lastInsight: null,
       resetNonce: 0,
+      cameraSpawn: null,
+      cameraLookAt: null,
     })
   })
 

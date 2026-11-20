@@ -15,8 +15,8 @@ export function CoachBanner() {
         <p className="coach-eyebrow">Mission briefing</p>
         <strong>Enter Module 1: Hydrogen Explorer</strong>
         <p>
-          Click the green M01 portal. Move with WASD, look with Shift+drag, or use Enter VR on
-          Quest.
+          Walk into the green Module 01 cylinder to teleport in (or click its sign). Move with
+          WASD, look with Shift+drag.
         </p>
       </aside>
     )
