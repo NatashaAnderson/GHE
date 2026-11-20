@@ -7,7 +7,7 @@
   "durationMinutes": 15,
   "locked": false,
   "hubSpawn": [0, 0, 8],
-  "portalPosition": [-6, 0, -4],
+  "portalPosition": [-4.5, 0, 2.5],
   "outcomes": [
     {
       "id": "what-is-hydrogen",

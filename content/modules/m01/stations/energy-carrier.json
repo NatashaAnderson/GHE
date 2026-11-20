@@ -2,7 +2,7 @@
   "id": "energy-carrier",
   "title": "Energy Carrier Map",
   "outcomeId": "energy-carrier",
-  "position": [8, 0, -2],
+  "position": [6, 0, -2],
   "summary": "Hydrogen carries energy from renewables to trucks, ships, and industry.",
   "coachPrompt": "Follow the path Sun → Electricity → Hydrogen, then deliver H₂ energy to transport, shipping, and industry.",
   "flow": ["Sun", "Electricity", "Hydrogen"],

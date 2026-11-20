@@ -60,7 +60,7 @@ export function StationElectrolyzer({
       </mesh>
 
       <Text position={[0, 2.9, 0]} fontSize={0.26} color="#0f2438" anchorX="center">
-        {station.title}
+        {`3 · ${station.title}`}
       </Text>
       <StationStatusLabel
         complete={isComplete}

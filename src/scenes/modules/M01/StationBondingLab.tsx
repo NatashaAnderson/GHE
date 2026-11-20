@@ -43,7 +43,7 @@ export function StationBondingLab({
       </mesh>
 
       <Text position={[0, 2.8, 0]} fontSize={0.28} color="#0f2438" anchorX="center">
-        {station.title}
+        {`2 · ${station.title}`}
       </Text>
       <StationStatusLabel
         complete={isComplete}

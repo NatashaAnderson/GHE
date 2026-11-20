@@ -5,6 +5,15 @@ import { StationStatusLabel } from '../../../components/StationStatusLabel'
 import { EMPTY_FLAGS } from '../../../systems/emptyFlags'
 import { useProgressStore } from '../../../systems/progress'
 
+/** Front row facing the learner (toward +Z / campus approach): 1 → 4 left to right. */
+function factCardPosition(index: number, total: number): [number, number, number] {
+  const span = 3.6
+  const t = total <= 1 ? 0.5 : index / (total - 1)
+  const x = -span / 2 + t * span
+  const z = 1.75
+  return [x, 0.9, z]
+}
+
 export function StationMeetHydrogen({
   station,
   moduleId,
@@ -39,12 +48,12 @@ export function StationMeetHydrogen({
   return (
     <group position={station.position as [number, number, number]}>
       <mesh position={[0, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <circleGeometry args={[2.4, 32]} />
+        <circleGeometry args={[2.6, 32]} />
         <meshStandardMaterial color={isComplete ? '#c8f0d8' : '#dceefc'} />
       </mesh>
 
       <Text position={[0, 2.85, 0]} fontSize={0.28} color="#0f2438" anchorX="center">
-        {station.title}
+        {`1 · ${station.title}`}
       </Text>
       <StationStatusLabel
         complete={isComplete}
@@ -52,13 +61,13 @@ export function StationMeetHydrogen({
           !moleculeDone
             ? '1/2 Click the spinning H₂ molecule'
             : factsDone < facts.length
-              ? `2/2 Click fact cards (${factsDone}/${facts.length})`
+              ? `2/2 Click fact cards 1→4 (${factsDone}/${facts.length})`
               : 'Finishing…'
         }
       />
 
       <H2Molecule
-        position={[0, 1.55, 0]}
+        position={[0, 1.55, -0.15]}
         scale={1.45}
         highlighted={moleculeDone}
         onClick={() => {
@@ -70,7 +79,7 @@ export function StationMeetHydrogen({
         }}
       />
       <Text
-        position={[0, 0.95, 0]}
+        position={[0, 0.95, -0.15]}
         fontSize={0.12}
         color={moleculeDone ? '#1f9d55' : '#1a6fb5'}
         anchorX="center"
@@ -79,12 +88,10 @@ export function StationMeetHydrogen({
       </Text>
 
       {facts.map((fact, index) => {
-        const angle = (index / facts.length) * Math.PI * 2 - Math.PI / 2
-        const x = Math.cos(angle) * 2.05
-        const z = Math.sin(angle) * 2.05
+        const [x, y, z] = factCardPosition(index, facts.length)
         const done = factFlags[index]
         return (
-          <group key={fact} position={[x, 0.9, z]}>
+          <group key={fact} position={[x, y, z]}>
             <mesh
               onClick={() => {
                 markInteraction(moduleId, station.id, `fact-${index}`)

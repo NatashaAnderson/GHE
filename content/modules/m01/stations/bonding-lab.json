@@ -2,7 +2,7 @@
   "id": "bonding-lab",
   "title": "Bonding Lab",
   "outcomeId": "what-is-hydrogen",
-  "position": [-3, 0, -6],
+  "position": [-2, 0, -2],
   "summary": "Hydrogen is the friend who never arrives at the party alone — bond two H atoms to oxygen to form water.",
   "coachPrompt": "Drag or click two hydrogen atoms onto the oxygen atom to form H₂O.",
   "successCriteria": {

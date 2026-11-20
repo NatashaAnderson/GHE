@@ -3,7 +3,7 @@
   "title": "Green Electrolyzer",
   "outcomeId": "electrolysis",
   "secondaryOutcomeIds": ["why-green"],
-  "position": [4, 0, -6],
+  "position": [2, 0, -2],
   "summary": "Power an electrolyzer with renewable electricity and split water into hydrogen and oxygen.",
   "coachPrompt": "Connect solar and wind power, then start electrolysis. Watch H₂ form at the negative electrode and O₂ at the positive electrode.",
   "steps": [
