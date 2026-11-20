@@ -1,0 +1,15 @@
+{
+  "id": "mXX",
+  "number": 0,
+  "title": "Module Title",
+  "badge": "Badge Name",
+  "tagline": "Short mission tagline.",
+  "durationMinutes": 15,
+  "locked": true,
+  "hubSpawn": [0, 0, 8],
+  "portalPosition": [0, 0, -4],
+  "outcomes": [],
+  "stationOrder": [],
+  "assets": {},
+  "coachIntro": "Coach intro copy."
+}

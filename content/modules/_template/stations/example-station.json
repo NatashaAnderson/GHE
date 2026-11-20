@@ -1,0 +1,13 @@
+{
+  "id": "example-station",
+  "title": "Example Station",
+  "outcomeId": "example-outcome",
+  "position": [0, 0, -4],
+  "summary": "Describe the teaching moment.",
+  "coachPrompt": "Tell the learner what to do.",
+  "successCriteria": {
+    "type": "inspect",
+    "requiredInteractions": ["example-action"]
+  },
+  "teachingPoints": ["Key takeaway"]
+}

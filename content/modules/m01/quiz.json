@@ -1,0 +1,80 @@
+{
+  "moduleId": "m01",
+  "title": "Hydrogen Explorer Knowledge Check",
+  "passScore": 0.8,
+  "instruction": "Choose the best answer.",
+  "questions": [
+    {
+      "id": "q1",
+      "prompt": "What is hydrogen?",
+      "choices": [
+        { "id": "a", "label": "A type of electricity" },
+        { "id": "b", "label": "A chemical element" },
+        { "id": "c", "label": "A very ambitious water droplet" },
+        { "id": "d", "label": "A metal" }
+      ],
+      "correctId": "b",
+      "feedback": "Hydrogen is a chemical element. It is also the lightest element."
+    },
+    {
+      "id": "q2",
+      "prompt": "Why is hydrogen rarely found alone on Earth?",
+      "choices": [
+        { "id": "a", "label": "It disappears when it reaches Earth" },
+        { "id": "b", "label": "It prefers working from home" },
+        { "id": "c", "label": "It only exists in space" },
+        { "id": "d", "label": "It usually joins with other elements" }
+      ],
+      "correctId": "d",
+      "feedback": "Hydrogen easily combines with other elements. For example, hydrogen joins with oxygen to form water."
+    },
+    {
+      "id": "q3",
+      "prompt": "What does H₂O mean?",
+      "choices": [
+        { "id": "a", "label": "Two hydrogen atoms and one oxygen atom" },
+        { "id": "b", "label": "Hydrogen with no oxygen" },
+        { "id": "c", "label": "Two hydrogen tanks and one oxygen tank" },
+        { "id": "d", "label": "Two oxygen atoms and one hydrogen atom" }
+      ],
+      "correctId": "a",
+      "feedback": "H stands for hydrogen, O stands for oxygen, and the small 2 tells us there are two hydrogen atoms."
+    },
+    {
+      "id": "q4",
+      "prompt": "What do the colours grey, blue, turquoise and green tell us about hydrogen?",
+      "choices": [
+        { "id": "a", "label": "The actual colour of the hydrogen gas" },
+        { "id": "b", "label": "Which colour tank the hydrogen prefers" },
+        { "id": "c", "label": "How the hydrogen was produced" },
+        { "id": "d", "label": "The temperature of the hydrogen" }
+      ],
+      "correctId": "c",
+      "feedback": "Hydrogen itself is colourless. The colour names describe the different methods used to produce hydrogen."
+    },
+    {
+      "id": "q5",
+      "prompt": "Which type of hydrogen is produced using renewable electricity and water?",
+      "choices": [
+        { "id": "a", "label": "Purple hydrogen" },
+        { "id": "b", "label": "Green hydrogen" },
+        { "id": "c", "label": "Grey hydrogen" },
+        { "id": "d", "label": "Blue hydrogen" }
+      ],
+      "correctId": "b",
+      "feedback": "Green hydrogen is produced by using renewable electricity, such as solar or wind power, to split water."
+    },
+    {
+      "id": "q6",
+      "prompt": "What is electrolysis?",
+      "choices": [
+        { "id": "a", "label": "Burning hydrogen for heat" },
+        { "id": "b", "label": "Storing hydrogen in tanks" },
+        { "id": "c", "label": "Mixing hydrogen with natural gas" },
+        { "id": "d", "label": "Using electricity to split water into hydrogen and oxygen" }
+      ],
+      "correctId": "d",
+      "feedback": "Electrolysis uses electrical energy to separate water into hydrogen and oxygen."
+    }
+  ]
+}

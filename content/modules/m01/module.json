@@ -1,0 +1,37 @@
+{
+  "id": "m01",
+  "number": 1,
+  "title": "Hydrogen Explorer",
+  "badge": "Hydrogen Explorer",
+  "tagline": "Meet hydrogen, the universe's lightest explorer.",
+  "durationMinutes": 15,
+  "locked": false,
+  "hubSpawn": [0, 0, 8],
+  "portalPosition": [-6, 0, -4],
+  "outcomes": [
+    {
+      "id": "what-is-hydrogen",
+      "label": "Explain what hydrogen is"
+    },
+    {
+      "id": "why-green",
+      "label": "Explain why Green Hydrogen is called \"green\""
+    },
+    {
+      "id": "electrolysis",
+      "label": "Describe electrolysis in simple language"
+    },
+    {
+      "id": "energy-carrier",
+      "label": "Explain why hydrogen is called an energy carrier"
+    }
+  ],
+  "stationOrder": ["meet-hydrogen", "bonding-lab", "green-electrolyzer", "energy-carrier"],
+  "assets": {
+    "outcomesImage": "/assets/m01/outcomes.png",
+    "badgePoster": "/assets/m01/badge-poster.jpg",
+    "completionVideo": "/assets/m01/mission-complete.mp4",
+    "fieldManual": "/assets/m01/field-manual.pdf"
+  },
+  "coachIntro": "Welcome to the ForgeX Green Hydrogen campus. Complete four stations, pass the knowledge check, and earn your Hydrogen Explorer badge."
+}

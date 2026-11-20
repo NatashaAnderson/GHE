@@ -1,0 +1,22 @@
+{
+  "id": "energy-carrier",
+  "title": "Energy Carrier Map",
+  "outcomeId": "energy-carrier",
+  "position": [8, 0, -2],
+  "summary": "Hydrogen carries energy from renewables to trucks, ships, and industry.",
+  "coachPrompt": "Follow the path Sun → Electricity → Hydrogen, then deliver H₂ energy to transport, shipping, and industry.",
+  "flow": ["Sun", "Electricity", "Hydrogen"],
+  "destinations": [
+    { "id": "truck", "label": "Transport", "description": "Heavy-duty trucks powered by hydrogen" },
+    { "id": "ship", "label": "Maritime", "description": "Cargo ships using H₂ as fuel" },
+    { "id": "factory", "label": "Industry", "description": "Industrial plants using green hydrogen" }
+  ],
+  "successCriteria": {
+    "type": "route",
+    "requiredDestinations": ["truck", "ship", "factory"]
+  },
+  "teachingPoints": [
+    "Hydrogen stores and moves energy made from the sun and renewables.",
+    "That is why hydrogen is called an energy carrier."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "meet-hydrogen",
+  "title": "Meet Hydrogen",
+  "outcomeId": "what-is-hydrogen",
+  "position": [-8, 0, -2],
+  "summary": "Discover what hydrogen is and why it rarely travels alone on Earth.",
+  "facts": [
+    "Smallest element",
+    "Lightest element",
+    "Most abundant element in the universe",
+    "Yet we almost never find it by itself on Earth"
+  ],
+  "remember": [
+    "Hydrogen is tiny.",
+    "Hydrogen is everywhere.",
+    "On Earth it is usually attached to something else."
+  ],
+  "wordToRemember": {
+    "term": "Element",
+    "definition": "An element is a basic substance that cannot be broken down into a simpler substance by ordinary chemical means."
+  },
+  "successCriteria": {
+    "type": "inspect",
+    "requiredInteractions": ["inspect-molecule", "read-facts"]
+  },
+  "coachPrompt": "Inspect the H₂ molecule and tap each fact marker to complete this station."
+}

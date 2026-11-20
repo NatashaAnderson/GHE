@@ -1,0 +1,15 @@
+{
+  "courseId": "green-hydrogen-energy",
+  "courseTitle": "Green Hydrogen Energy",
+  "brand": "ForgeX",
+  "modules": [
+    { "id": "m01", "title": "Hydrogen Explorer", "locked": false },
+    { "id": "m02", "title": "Storage Strategist", "locked": true },
+    { "id": "m03", "title": "Production Detective", "locked": true },
+    { "id": "m04", "title": "Fuel Cell Engineer", "locked": true },
+    { "id": "m05", "title": "Safety Champion", "locked": true },
+    { "id": "m06", "title": "Hybrid Energy Architect", "locked": true },
+    { "id": "m07", "title": "Nuclear Hydrogen Innovator", "locked": true },
+    { "id": "m08", "title": "Future Hydrogen Engineer", "locked": true }
+  ]
+}
