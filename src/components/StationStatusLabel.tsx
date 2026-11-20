@@ -1,23 +1,20 @@
-import { Text } from '@react-three/drei'
+import { WorldSign } from './WorldSign'
 
-/** Compact 3D status under the station title — no DOM overlay. */
+/** Compact station header — screen-facing so it stays readable. */
 export function StationStatusLabel({
+  title,
   complete,
   hint,
 }: {
+  title: string
   complete: boolean
   hint: string
 }) {
   return (
-    <Text
-      position={[0, 2.35, 0]}
-      fontSize={0.14}
-      color={complete ? '#1f9d55' : '#355068'}
-      anchorX="center"
-      maxWidth={4}
-      textAlign="center"
-    >
-      {complete ? 'Complete' : hint}
-    </Text>
+    <WorldSign position={[0, 2.7, 0]} width={240} tone={complete ? 'success' : 'accent'}>
+      <span className="world-sign__eyebrow">{complete ? 'Station complete' : 'Station'}</span>
+      <strong className="world-sign__title">{title}</strong>
+      <span className="world-sign__status">{complete ? 'Complete' : hint}</span>
+    </WorldSign>
   )
 }

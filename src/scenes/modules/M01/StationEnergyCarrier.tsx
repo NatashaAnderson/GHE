@@ -35,10 +35,8 @@ export function StationEnergyCarrier({
         <meshStandardMaterial color={isComplete ? '#c8f0d8' : '#e7f5ff'} />
       </mesh>
 
-      <Text position={[0, 2.9, 0]} fontSize={0.26} color="#0f2438" anchorX="center">
-        {`4 · ${station.title}`}
-      </Text>
       <StationStatusLabel
+        title={`4 · ${station.title}`}
         complete={isComplete}
         hint={
           flags['flow-complete']

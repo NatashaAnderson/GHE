@@ -114,6 +114,82 @@ input {
   font-weight: 600;
 }
 
+.world-sign {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(248, 252, 255, 0.96);
+  border: 2px solid #1a6fb5;
+  box-shadow: 0 8px 24px rgba(15, 36, 56, 0.2);
+  color: #0f2438;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.world-sign--accent {
+  border-color: #1a6fb5;
+}
+
+.world-sign--success {
+  border-color: #1f9d55;
+}
+
+.world-sign--muted {
+  border-color: #9bb4c7;
+  opacity: 0.92;
+}
+
+.world-sign__eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5b6b7a;
+}
+
+.world-sign__title {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.world-sign__status {
+  font-size: 11px;
+  color: #355068;
+}
+
+.world-sign--success .world-sign__status {
+  color: #1f9d55;
+  font-weight: 650;
+}
+
+.world-sign__badge {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 6px 0;
+}
+
+.world-sign__button {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: center;
+  font: inherit;
+}
+
+.world-sign__button:disabled {
+  cursor: default;
+}
+
 .hud-brand {
   display: flex;
   gap: 12px;

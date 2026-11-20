@@ -42,10 +42,8 @@ export function StationBondingLab({
         <meshStandardMaterial color={isComplete ? '#c8f0d8' : '#ffe8d6'} />
       </mesh>
 
-      <Text position={[0, 2.8, 0]} fontSize={0.28} color="#0f2438" anchorX="center">
-        {`2 · ${station.title}`}
-      </Text>
       <StationStatusLabel
+        title={`2 · ${station.title}`}
         complete={isComplete}
         hint={selected ? `Bonds ${bondCount}/2 — click an O slot` : `Bonds ${bondCount}/2 — select H`}
       />

@@ -59,10 +59,8 @@ export function StationElectrolyzer({
         <meshStandardMaterial color={isComplete ? '#c8f0d8' : '#d9ecff'} />
       </mesh>
 
-      <Text position={[0, 2.9, 0]} fontSize={0.26} color="#0f2438" anchorX="center">
-        {`3 · ${station.title}`}
-      </Text>
       <StationStatusLabel
+        title={`3 · ${station.title}`}
         complete={isComplete}
         hint={
           !powered

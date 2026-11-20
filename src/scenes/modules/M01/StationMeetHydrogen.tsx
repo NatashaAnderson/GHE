@@ -52,10 +52,8 @@ export function StationMeetHydrogen({
         <meshStandardMaterial color={isComplete ? '#c8f0d8' : '#dceefc'} />
       </mesh>
 
-      <Text position={[0, 2.85, 0]} fontSize={0.28} color="#0f2438" anchorX="center">
-        {`1 · ${station.title}`}
-      </Text>
       <StationStatusLabel
+        title={`1 · ${station.title}`}
         complete={isComplete}
         hint={
           !moleculeDone

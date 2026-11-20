@@ -1,5 +1,6 @@
 import { Text } from '@react-three/drei'
 import type { ModulePack } from '../../../content/types'
+import { WorldSign } from '../../../components/WorldSign'
 import { CampusEnvironment } from '../../CampusEnvironment'
 import { StationFocusTracker } from '../../StationFocusTracker'
 import { useProgressStore } from '../../../systems/progress'
@@ -24,12 +25,11 @@ export function Module1Scene({ pack }: { pack: ModulePack }) {
       <CampusEnvironment reduceMotion={reduceMotion} />
       <StationFocusTracker stations={pack.stations} />
 
-      <Text position={[0, 3.4, 6]} fontSize={0.4} color="#0f2438" anchorX="center">
-        {pack.module.title}
-      </Text>
-      <Text position={[0, 2.9, 6]} fontSize={0.2} color="#1a6fb5" anchorX="center" maxWidth={10}>
-        {pack.module.tagline}
-      </Text>
+      <WorldSign position={[0, 3.0, 5.5]} width={300} tone="accent">
+        <span className="world-sign__eyebrow">Module 01</span>
+        <strong className="world-sign__title">{pack.module.title}</strong>
+        <span className="world-sign__status">{pack.module.tagline}</span>
+      </WorldSign>
 
       {stationById['meet-hydrogen'] && (
         <StationMeetHydrogen station={stationById['meet-hydrogen']} moduleId={pack.module.id} />

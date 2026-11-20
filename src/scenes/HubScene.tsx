@@ -1,8 +1,8 @@
-import { Text } from '@react-three/drei'
 import { getCatalog } from '../content/loader'
 import { useProgressStore } from '../systems/progress'
 import { CampusEnvironment } from './CampusEnvironment'
 import { HubPortal } from './HubPortal'
+import { WorldSign } from '../components/WorldSign'
 
 /**
  * Portal positions as seen from spawn (looking toward -Z):
@@ -30,20 +30,11 @@ export function HubScene() {
     <group>
       <CampusEnvironment reduceMotion={reduceMotion} />
 
-      <Text position={[0, 3.15, 5.4]} fontSize={0.42} color="#0f2438" anchorX="center">
-        {catalog.courseTitle}
-      </Text>
-      <Text position={[0, 2.55, 5.4]} fontSize={0.22} color="#1a6fb5" anchorX="center">
-        ForgeX Campus Hub
-      </Text>
-
-      {/* Row captions facing the learner */}
-      <Text position={[0, 0.15, 4.0]} fontSize={0.16} color="#355068" anchorX="center">
-        Front row · Modules 01–04
-      </Text>
-      <Text position={[0, 0.15, -1.0]} fontSize={0.16} color="#355068" anchorX="center">
-        Back row · Modules 05–08
-      </Text>
+      <WorldSign position={[0, 3.1, 5.2]} width={320} tone="accent">
+        <span className="world-sign__eyebrow">ForgeX Campus Hub</span>
+        <strong className="world-sign__title">{catalog.courseTitle}</strong>
+        <span className="world-sign__status">Front row = Modules 01–04 · Back row = 05–08</span>
+      </WorldSign>
 
       {catalog.modules.map((module, index) => {
         const position = PORTAL_LAYOUT[index] ?? [0, 0, 2]
