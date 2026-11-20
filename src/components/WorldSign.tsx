@@ -1,5 +1,6 @@
 import { Html } from '@react-three/drei'
 import type { ReactNode } from 'react'
+import { useProgressStore } from '../systems/progress'
 
 type WorldSignProps = {
   position: [number, number, number]
@@ -17,12 +18,17 @@ export function WorldSign({
   interactive = false,
   tone = 'default',
 }: WorldSignProps) {
+  const phase = useProgressStore((s) => s.phase)
+
+  // Never let world Html labels sit on top of quiz / badge overlays
+  if (phase === 'quiz' || phase === 'badge') return null
+
   return (
     <Html
       position={position}
       center
       distanceFactor={12}
-      zIndexRange={[80, 0]}
+      zIndexRange={[10, 0]}
       style={{
         width,
         pointerEvents: interactive ? 'auto' : 'none',

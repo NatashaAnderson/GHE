@@ -27,10 +27,11 @@ function Experience() {
       <CameraSpawnApplier />
       <DesktopControls enabled={phase !== 'quiz' && phase !== 'badge'} />
       {phase === 'hub' && <HubScene />}
-      {phase !== 'hub' && pack?.module.id === 'm01' && (
+      {/* Keep module scene only while exploring — hide during quiz/badge so Html signs can't cover overlays */}
+      {phase === 'module' && pack?.module.id === 'm01' && (
         <Module1Scene key={`m01-${resetNonce}`} pack={pack} />
       )}
-      {phase !== 'hub' && pack && pack.module.id !== 'm01' && <HubScene />}
+      {phase === 'module' && pack && pack.module.id !== 'm01' && <HubScene />}
     </>
   )
 }
