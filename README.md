@@ -42,6 +42,11 @@ Source PDFs/PPTX remain locally under `Learnining Material/` (gitignored).
 - [Quest test checklist](docs/QUEST_TEST_CHECKLIST.md)
 - [Module playbook](docs/MODULE_PLAYBOOK.md)
 
+## Live app
+- Campus hub: https://ghe-metaverse.vercel.app
+- Module 1: https://ghe-metaverse.vercel.app/?module=m01
+- LMS embed: https://ghe-metaverse.vercel.app/embed?module=m01&embed=1
+
 ## Deploy
 Deploy the Vite `dist/` output to Vercel (or any static HTTPS host). `vercel.json` includes SPA rewrites for `/embed`.
 
