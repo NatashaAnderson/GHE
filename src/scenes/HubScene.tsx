@@ -1,10 +1,11 @@
+import { useEffect } from 'react'
 import { getCatalog } from '../content/loader'
 import { useProgressStore } from '../systems/progress'
 import { CampusEnvironment } from './CampusEnvironment'
 import { CampusSignPost } from './CampusSignPost'
 import { HubPortal } from './HubPortal'
 import { PortalProximityTeleporter } from './PortalProximityTeleporter'
-import { MODULE_SPAWN, PORTAL_LAYOUT } from './portalLayout'
+import { HUB_LOOK_AT, HUB_SPAWN, MODULE_SPAWN, PORTAL_LAYOUT } from './portalLayout'
 
 export function HubScene() {
   const catalog = getCatalog()
@@ -12,6 +13,10 @@ export function HubScene() {
   const requestCameraSpawn = useProgressStore((s) => s.requestCameraSpawn)
   const earnedBadges = useProgressStore((s) => s.earnedBadges)
   const reduceMotion = useProgressStore((s) => s.reduceMotion)
+
+  useEffect(() => {
+    requestCameraSpawn(HUB_SPAWN, HUB_LOOK_AT)
+  }, [requestCameraSpawn])
 
   const enterModule = (moduleId: string) => {
     startModule(moduleId)

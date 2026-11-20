@@ -15,6 +15,7 @@ export function CameraSpawnApplier() {
     camera.position.set(cameraSpawn[0], cameraSpawn[1], cameraSpawn[2])
     if (cameraLookAt) {
       camera.lookAt(new THREE.Vector3(cameraLookAt[0], cameraLookAt[1], cameraLookAt[2]))
+      camera.updateProjectionMatrix()
     }
     clearCameraSpawn()
   }, [camera, cameraSpawn, cameraLookAt, clearCameraSpawn])

@@ -65,7 +65,7 @@ export default function App() {
 
       <Canvas
         shadows
-        camera={{ position: [0, 1.6, 13.2], fov: 55, near: 0.1, far: 120 }}
+        camera={{ position: [0, 5.8, 18.5], fov: 50, near: 0.1, far: 140 }}
         gl={{ antialias: true }}
       >
         <XR store={xrStore}>

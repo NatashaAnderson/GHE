@@ -20,10 +20,12 @@ export const MODULE_SPAWN: [number, number, number] = [0, 1.6, 7]
  * Campus welcome signpost (ground position).
  * Kept south of the portal plaza so cylinders are not crowded.
  */
-export const SIGNPOST_POSITION: [number, number, number] = [0, 0, 11]
+export const SIGNPOST_POSITION: [number, number, number] = [0, 0, 12]
 
-/** Camera standing in front of the campus signpost, looking toward the modules. */
-export const HUB_SPAWN: [number, number, number] = [0, 1.6, 13.2]
+/**
+ * Elevated start camera so the full campus (sign, modules, building, solar, turbines) is in view.
+ */
+export const HUB_SPAWN: [number, number, number] = [0, 5.8, 18.5]
 
-/** Look target from the signpost toward the portal plaza. */
-export const HUB_LOOK_AT: [number, number, number] = [0, 1.5, 2.5]
+/** Look toward plaza centre / modules for a maximised establishing shot. */
+export const HUB_LOOK_AT: [number, number, number] = [0, 1.2, -2]
