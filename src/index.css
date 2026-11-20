@@ -105,6 +105,15 @@ input {
   color: var(--green) !important;
 }
 
+.coach-insight {
+  margin-top: 10px !important;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #e7f2fb;
+  color: var(--ink) !important;
+  font-weight: 600;
+}
+
 .hud-brand {
   display: flex;
   gap: 12px;

@@ -15,6 +15,7 @@ describe('progress store', () => {
       embedMode: false,
       reduceMotion: false,
       focusedStationId: null,
+      lastInsight: null,
     })
   })
 

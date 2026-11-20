@@ -7,6 +7,7 @@ export function CoachBanner() {
   const focusedStationId = useProgressStore((s) => s.focusedStationId)
   const completedStations = useProgressStore((s) => s.completedStations)
   const stationFlags = useProgressStore((s) => s.stationFlags)
+  const lastInsight = useProgressStore((s) => s.lastInsight)
 
   if (phase === 'hub') {
     return (
@@ -58,6 +59,11 @@ export function CoachBanner() {
       <p className="coach-eyebrow">{complete ? 'Station complete' : 'Current station'}</p>
       <strong>{focused.title}</strong>
       <p>{detail || focused.coachPrompt}</p>
+      {lastInsight && !complete && (
+        <p className="coach-insight" data-testid="coach-insight">
+          {lastInsight}
+        </p>
+      )}
     </aside>
   )
 }
@@ -84,9 +90,12 @@ function stationDetail(
   }
 
   if (stationId === 'meet-hydrogen') {
-    const molecule = flags['inspect-molecule'] ? '✓' : '○'
+    const molecule = flags['inspect-molecule']
     const facts = [0, 1, 2, 3].filter((i) => flags[`fact-${i}`]).length
-    return `${molecule} Click the blue H₂ molecule, then click each blue fact cube (${facts}/4).`
+    if (!molecule) {
+      return 'Start by clicking the spinning blue H₂ molecule in the centre. Then open each numbered fact card around it.'
+    }
+    return `Molecule inspected ✓ · Fact cards ${facts}/4. Click every numbered card to read what makes hydrogen special.`
   }
 
   if (stationId === 'bonding-lab') {

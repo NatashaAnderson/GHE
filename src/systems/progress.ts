@@ -20,6 +20,7 @@ type ProgressState = {
   embedMode: boolean
   reduceMotion: boolean
   focusedStationId: string | null
+  lastInsight: string | null
   setEmbedContext: (ctx: {
     courseId: string | null
     learnerId: string | null
@@ -29,6 +30,7 @@ type ProgressState = {
   startModule: (moduleId: string) => void
   setPhase: (phase: AppPhase) => void
   setFocusedStationId: (stationId: string | null) => void
+  setLastInsight: (insight: string | null) => void
   markInteraction: (moduleId: string, stationId: string, flag: string) => void
   completeStation: (moduleId: string, stationId: string) => void
   isStationComplete: (moduleId: string, stationId: string) => boolean
@@ -53,16 +55,19 @@ export const useProgressStore = create<ProgressState>()(
       embedMode: false,
       reduceMotion: false,
       focusedStationId: null,
+      lastInsight: null,
 
       setEmbedContext: (ctx) => set(ctx),
 
-      enterHub: () => set({ phase: 'hub', activeModuleId: null, focusedStationId: null }),
+      enterHub: () =>
+        set({ phase: 'hub', activeModuleId: null, focusedStationId: null, lastInsight: null }),
 
       startModule: (moduleId) =>
         set({
           activeModuleId: moduleId,
           phase: 'module',
           focusedStationId: null,
+          lastInsight: null,
         }),
 
       setPhase: (phase) => set({ phase }),
@@ -71,6 +76,8 @@ export const useProgressStore = create<ProgressState>()(
         if (get().focusedStationId === stationId) return
         set({ focusedStationId: stationId })
       },
+
+      setLastInsight: (insight) => set({ lastInsight: insight }),
 
       markInteraction: (moduleId, stationId, flag) => {
         const key = `${moduleId}:${stationId}`
