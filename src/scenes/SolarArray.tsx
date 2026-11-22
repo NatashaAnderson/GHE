@@ -1,131 +1,107 @@
-const TILT = -0.55
-const PANEL_W = 1.85
-const PANEL_H = 1.1
-/** Half-height along the tilted panel face — used to seat posts under the rail. */
-const HALF_H = PANEL_H / 2
+/**
+ * Ground-mounted solar units with clear human-scale proportions:
+ * - lowest panel edge ~0.55m above ground
+ * - short front posts + taller rear posts that meet the rail
+ * - 3×3 farm facing the module plaza
+ */
+const TILT = 0.52 // radians (~30°)
+const PANEL_W = 1.9
+const PANEL_H = 1.15
+const CLEARANCE = 0.55 // lowest glass edge above ground
+const COL_SPACING = 2.25
+const ROW_SPACING = 2.35
+
+/** Height of panel centre after tilt so the low edge clears the ground. */
+const PANEL_CENTER_Y = CLEARANCE + (PANEL_H / 2) * Math.cos(TILT)
+const FRONT_POST_H = CLEARANCE + 0.08
+const REAR_POST_H = CLEARANCE + PANEL_H * Math.sin(TILT) + 0.08
 
 function SolarPanelUnit({ position }: { position: [number, number, number] }) {
-  // Front (lower) and rear (higher) post lengths so tops meet the tilted rail
-  const frontPostLen = 0.55
-  const rearPostLen = frontPostLen + Math.sin(Math.abs(TILT)) * PANEL_H
-
   return (
     <group position={position}>
-      {/* Face the plaza (+X), then tilt toward the sun */}
-      <group rotation={[0, Math.PI / 2, 0]}>
-        <group rotation={[TILT, 0, 0]}>
-          {/* Mounting rail under the panel */}
-          <mesh position={[0, 0, -0.08]} raycast={() => null}>
-            <boxGeometry args={[PANEL_W + 0.08, PANEL_H + 0.08, 0.08]} />
-            <meshStandardMaterial color="#4a5560" metalness={0.55} roughness={0.35} />
-          </mesh>
+      {/* Foot pads */}
+      {(
+        [
+          [-0.65, 0.35],
+          [0.65, 0.35],
+          [-0.65, -0.55],
+          [0.65, -0.55],
+        ] as Array<[number, number]>
+      ).map(([fx, fz]) => (
+        <mesh key={`foot-${fx}-${fz}`} position={[fx, 0.04, fz]} raycast={() => null}>
+          <boxGeometry args={[0.28, 0.08, 0.28]} />
+          <meshStandardMaterial color="#6f787f" roughness={0.9} />
+        </mesh>
+      ))}
 
-          {/* Panel body */}
-          <mesh position={[0, 0, -0.02]} raycast={() => null}>
-            <boxGeometry args={[PANEL_W, PANEL_H, 0.05]} />
-            <meshStandardMaterial color="#2a323c" metalness={0.4} roughness={0.45} />
-          </mesh>
-          <mesh position={[0, 0, 0.01]} raycast={() => null}>
-            <boxGeometry args={[PANEL_W - 0.1, PANEL_H - 0.1, 0.04]} />
-            <meshStandardMaterial color="#163a6b" metalness={0.75} roughness={0.18} />
-          </mesh>
+      {/* Front posts (lower edge of panel) */}
+      {([-0.65, 0.65] as const).map((x) => (
+        <mesh key={`front-${x}`} position={[x, FRONT_POST_H / 2, 0.38]} raycast={() => null}>
+          <cylinderGeometry args={[0.04, 0.05, FRONT_POST_H, 8]} />
+          <meshStandardMaterial color="#5c6670" metalness={0.55} roughness={0.35} />
+        </mesh>
+      ))}
 
-          {/* Cell grid */}
+      {/* Rear posts (higher edge) */}
+      {([-0.65, 0.65] as const).map((x) => (
+        <mesh key={`rear-${x}`} position={[x, REAR_POST_H / 2, -0.55]} raycast={() => null}>
+          <cylinderGeometry args={[0.04, 0.05, REAR_POST_H, 8]} />
+          <meshStandardMaterial color="#5c6670" metalness={0.55} roughness={0.35} />
+        </mesh>
+      ))}
+
+      {/* Side rails linking front→rear post tops */}
+      {([-0.65, 0.65] as const).map((x) => (
+        <mesh
+          key={`rail-${x}`}
+          position={[x, (FRONT_POST_H + REAR_POST_H) / 2, -0.08]}
+          rotation={[Math.atan2(REAR_POST_H - FRONT_POST_H, 0.93), 0, 0]}
+          raycast={() => null}
+        >
+          <boxGeometry args={[0.06, 0.06, 1.15]} />
+          <meshStandardMaterial color="#4a5560" metalness={0.5} roughness={0.4} />
+        </mesh>
+      ))}
+
+      {/* Cross bar under panel */}
+      <mesh position={[0, PANEL_CENTER_Y - 0.12, -0.05]} raycast={() => null}>
+        <boxGeometry args={[1.4, 0.05, 0.05]} />
+        <meshStandardMaterial color="#4a5560" metalness={0.5} roughness={0.4} />
+      </mesh>
+
+      {/*
+        Panel faces the plaza (+X). Local layout: width along X, height along Y,
+        then tilt around X so the +Z local edge drops (front) and -Z rises (rear).
+        Parent yaw aims the panel normal toward +X.
+      */}
+      <group position={[0, PANEL_CENTER_Y, -0.05]} rotation={[0, Math.PI / 2, 0]}>
+        <group rotation={[-TILT, 0, 0]}>
+          <mesh position={[0, 0, -0.03]} raycast={() => null}>
+            <boxGeometry args={[PANEL_W + 0.06, PANEL_H + 0.06, 0.06]} />
+            <meshStandardMaterial color="#2f3842" metalness={0.45} roughness={0.4} />
+          </mesh>
+          <mesh raycast={() => null}>
+            <boxGeometry args={[PANEL_W, PANEL_H, 0.04]} />
+            <meshStandardMaterial color="#163a6b" metalness={0.8} roughness={0.16} />
+          </mesh>
           {[-0.5, 0, 0.5].map((gx) => (
-            <mesh key={`vx-${gx}`} position={[gx, 0, 0.035]} raycast={() => null}>
-              <boxGeometry args={[0.02, PANEL_H - 0.14, 0.01]} />
-              <meshStandardMaterial color="#0d2240" />
+            <mesh key={`g-${gx}`} position={[gx, 0, 0.025]} raycast={() => null}>
+              <boxGeometry args={[0.02, PANEL_H - 0.12, 0.01]} />
+              <meshStandardMaterial color="#0c203c" />
             </mesh>
           ))}
           {[-0.28, 0.28].map((gy) => (
-            <mesh key={`hz-${gy}`} position={[0, gy, 0.035]} raycast={() => null}>
-              <boxGeometry args={[PANEL_W - 0.14, 0.02, 0.01]} />
-              <meshStandardMaterial color="#0d2240" />
+            <mesh key={`h-${gy}`} position={[0, gy, 0.025]} raycast={() => null}>
+              <boxGeometry args={[PANEL_W - 0.12, 0.02, 0.01]} />
+              <meshStandardMaterial color="#0c203c" />
             </mesh>
           ))}
-
-          {/* Cross-brace connecting posts into the rail (local panel space) */}
-          <mesh position={[0, -HALF_H + 0.05, -0.14]} raycast={() => null}>
-            <boxGeometry args={[PANEL_W - 0.2, 0.06, 0.06]} />
-            <meshStandardMaterial color="#5b6570" metalness={0.5} roughness={0.4} />
-          </mesh>
-          <mesh position={[0, HALF_H - 0.05, -0.14]} raycast={() => null}>
-            <boxGeometry args={[PANEL_W - 0.2, 0.06, 0.06]} />
-            <meshStandardMaterial color="#5b6570" metalness={0.5} roughness={0.4} />
-          </mesh>
         </group>
-
-        {/*
-          Posts live in the yawed (plaza-facing) frame but NOT the tilt frame,
-          then reach up to the rail underside. Front edge of tilted panel is lower.
-        */}
-        {([-0.7, 0.7] as const).map((px) => (
-          <group key={`posts-${px}`}>
-            {/* Front / lower posts */}
-            <mesh
-              position={[px, frontPostLen / 2, Math.sin(Math.abs(TILT)) * HALF_H * 0.15]}
-              raycast={() => null}
-            >
-              <cylinderGeometry args={[0.045, 0.055, frontPostLen, 8]} />
-              <meshStandardMaterial color="#6b7480" metalness={0.6} roughness={0.35} />
-            </mesh>
-            {/* Strut from post top into tilted rail (front) */}
-            <mesh
-              position={[
-                px,
-                frontPostLen + 0.08,
-                -Math.sin(Math.abs(TILT)) * (HALF_H * 0.35),
-              ]}
-              rotation={[TILT, 0, 0]}
-              raycast={() => null}
-            >
-              <boxGeometry args={[0.05, 0.28, 0.05]} />
-              <meshStandardMaterial color="#5b6570" metalness={0.55} roughness={0.35} />
-            </mesh>
-
-            {/* Rear / taller posts */}
-            <mesh
-              position={[px, rearPostLen / 2, -Math.sin(Math.abs(TILT)) * PANEL_H * 0.55]}
-              raycast={() => null}
-            >
-              <cylinderGeometry args={[0.045, 0.055, rearPostLen, 8]} />
-              <meshStandardMaterial color="#6b7480" metalness={0.6} roughness={0.35} />
-            </mesh>
-            <mesh
-              position={[
-                px,
-                rearPostLen + 0.06,
-                -Math.sin(Math.abs(TILT)) * (HALF_H * 0.85),
-              ]}
-              rotation={[TILT, 0, 0]}
-              raycast={() => null}
-            >
-              <boxGeometry args={[0.05, 0.32, 0.05]} />
-              <meshStandardMaterial color="#5b6570" metalness={0.55} roughness={0.35} />
-            </mesh>
-          </group>
-        ))}
-
-        {/* Footings */}
-        {([-0.7, 0.7] as const).map((px) =>
-          (
-            [
-              [px, 0.04, 0.25],
-              [px, 0.04, -0.55],
-            ] as Array<[number, number, number]>
-          ).map((pos) => (
-            <mesh key={`foot-${pos.join('-')}`} position={pos} raycast={() => null}>
-              <cylinderGeometry args={[0.1, 0.12, 0.08, 10]} />
-              <meshStandardMaterial color="#7a828a" roughness={0.85} />
-            </mesh>
-          )),
-        )}
       </group>
     </group>
   )
 }
 
-/** 3×3 solar farm — posts connected into the rack, pad at building front-left. */
 export function SolarArray({
   position = [0, 0, 0] as [number, number, number],
 }: {
@@ -138,18 +114,25 @@ export function SolarArray({
     }
   }
 
+  const padW = COL_SPACING * 2 + 2.4
+  const padD = ROW_SPACING * 2 + 2.4
+
   return (
     <group position={position}>
-      {/* Foundation pad — starts at the building front, extends left */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[2.1, 0.02, 2.1]} raycast={() => null}>
-        <planeGeometry args={[7.4, 7.4]} />
+      <mesh
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[COL_SPACING, 0.025, ROW_SPACING]}
+        receiveShadow
+        raycast={() => null}
+      >
+        <planeGeometry args={[padW, padD]} />
         <meshStandardMaterial color="#8b9198" roughness={0.95} />
       </mesh>
 
       {panels.map(([col, row]) => (
         <SolarPanelUnit
           key={`panel-${row}-${col}`}
-          position={[col * 2.1, 0, row * 2.1]}
+          position={[col * COL_SPACING, 0, row * ROW_SPACING]}
         />
       ))}
     </group>
