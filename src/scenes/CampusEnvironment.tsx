@@ -52,9 +52,12 @@ export function CampusEnvironment({ reduceMotion = false }: { reduceMotion?: boo
         />
       </mesh>
 
-      {/* Plant building (left) + solar farm on the outer/front side, facing the modules */}
+      {/*
+        Plant building on the left. Solar pad starts at the building front
+        and sits further left when facing the door (looking toward -Z → left is -X).
+      */}
       <PlantBuilding position={[-14.5, 0, 1]} />
-      <SolarArray position={[-19.8, 0, 3.2]} />
+      <SolarArray position={[-21.2, 0, 2.6]} />
 
       {/* H2 storage tank — right side balance */}
       <group position={[14.5, 0, 1]}>
